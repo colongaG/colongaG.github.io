@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - RedStore | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+       <div class="container">
+          <div class="navbar">
+              <div class="logo">
+                  <a href="index.html"><img src="images/logo.png" width="125px"></a>
+              </div>
+              <nav>
+               <ul id="MenuItems">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="account.html">NewsLetter</a></li>
+               </ul>
+              </nav>
+              <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+              <img src="images/menu.png" onclick="menutoggle()" class="menu-icon">
+          </div>
+          
+       </div>
+       
+       
+<!--------------Cart Items details--------------->
+<div class="small-container cart-page">
+   
+   <table>
+       <tr>
+           <th>Product</th>
+           <th>Quantity</th>
+           <th>Subtotal</th>
+       </tr>
+
+       <tr>
+           <td>
+               <div class="cart-info">
+                   <img src="images/buy-1.jpg">
+                   <div>
+                       <p>Red Printed T-Shirt</p>
+                       <small>Price: $50.00</small><br>
+                       <a href="">Remove</a>
+                   </div>
+               </div>
+           </td>
+           <td><input type="number" value="1"></td>
+           <td>$50.00</td>
+       </tr>
+       <tr>
+           <td>
+               <div class="cart-info">
+                   <img src="images/buy-2.jpg">
+                   <div>
+                       <p>HRX Sports Shoes</p>
+                       <small>Price: $75.00</small><br>
+                       <a href="">Remove</a>
+                   </div>
+               </div>
+           </td>
+           <td><input type="number" value="1"></td>
+           <td>$75.00</td>
+       </tr>
+       <tr>
+           <td>
+               <div class="cart-info">
+                   <img src="images/buy-3.jpg">
+                   <div>
+                       <p>HRX Gray Trackpants</p>
+                       <small>Price: $75.00</small><br>
+                       <a href="">Remove</a>
+                   </div>
+               </div>
+           </td>
+           <td><input type="number" value="1"></td>
+           <td>$75.00</td>
+       </tr>
+   </table>
+    
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td>$200.00</td>
+            </tr>
+            <tr>
+                <td>Tax</td>
+                <td>$35.00</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>$235.00</td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="total-price">
+        <a href="checkout.html" class="btn">Proceed to checkout &#8594;</a>
+    </div>
+    
+</div>
+
+<!----------Footer---------------> 
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col1">
+               <h3>Download Our App</h3>
+                <p>Download App for Android and ios mobile phone.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png">
+                    <img src="images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col2">
+               <img src="images/logo-white.png">
+                <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+            </div>
+            <div class="footer-col3">
+               <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col4">
+               <h3>Follow Us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter<li>
+                    <li>Instagram</li>
+                    <li>YouTube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2020 - Easy Tutorials</p>
+    </div>
+    
+</div>
+
+
+
+<!-------------js for toggle menu-------------->
+
+<script>
+    
+    var MenuItems = document.getElementById("MenuItems");
+    
+    MenuItems.style.maxHeight = "0px";
+    
+    function menutoggle()
+    {
+        if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px";
+            }else
+            {
+                MenuItems.style.maxHeight = "0px"
+            } 
+    }
+    
+    
+</script>
+// Update the URLs in the fetch requests
+
+// Replace 'https://your-glitch-app-name.glitch.me' with your actual Glitch app URL
+const apiURL = 'https://your-glitch-app-name.glitch.me/api/cart';
+
+async function updateCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalContainer = document.getElementById('total');
+
+    // Fetch cart items from the server
+    const response = await fetch(apiURL);
+    const cartItems = await response.json();
+
+    // Clear previous items
+    cartItemsContainer.innerHTML = '';
+
+    // Update cart items
+    cartItems.forEach(item => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.innerHTML = `<div class="cart-info">
+                                   <img src="images/${item.image}">
+                                   <div>
+                                       <p>${item.name}</p>
+                                       <small>Price: $${item.price.toFixed(2)}</small><br>
+                                       <a href="#" onclick="removeItem('${item.id}')">Remove</a>
+                                   </div>
+                               </div>
+                               <input type="number" value="${item.quantity}" onchange="updateQuantity('${item.id}', this.value)">
+                               $${(item.price * item.quantity).toFixed(2)}`;
+        cartItemsContainer.appendChild(cartItemDiv);
+    });
+
+    // Update total
+    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    totalContainer.textContent = total.toFixed(2);
+}
+
+async function addItem(name, price, quantity) {
+    const response = await fetch(apiURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, price, quantity }),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        updateCart();
+    } else {
+        console.error(result.message);
+    }
+}
+
+async function removeItem(itemId) {
+    const response = await fetch(`${apiURL}/${itemId}`, {
+        method: 'DELETE',
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        updateCart();
+    } else {
+        console.error(result.message);
+    }
+}
+
+async function updateQuantity(itemId, newQuantity) {
+    // Implement the logic to update the quantity on the server
+    // For simplicity, you can send a PUT request to update the quantity
+    // You may need to modify the server code to handle updating the quantity
+    // based on the itemId and newQuantity.
+}
+</script>
+
+
+
+</body>
+</html>
+
